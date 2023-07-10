@@ -1,0 +1,5 @@
+*.env
+docker-compose.yml
+config/
+dags/__pycache__
+logs/
