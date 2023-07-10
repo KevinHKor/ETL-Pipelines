@@ -2,19 +2,20 @@ import psycopg2
 from datetime import date, timedelta
 from config.config import Config as cfg
 
-# Connect to the PostgreSQL database
-connection = psycopg2.connect(
-    host=cfg.host,
-    port=cfg.port,
-    database=cfg.database,
-    user=cfg.user,
-    password=cfg.password
-)
 
 def transform_data():
     '''
     Calls the stored procedure on PostgreSQL db to transform the data.
     '''
+
+    # Connect to the PostgreSQL database
+    connection = psycopg2.connect(
+        host=cfg.host,
+        port=cfg.port,
+        database=cfg.database,
+        user=cfg.user,
+        password=cfg.password
+    )
 
     cursor = connection.cursor()
     cursor.execute("SELECT COUNT(*) FROM {table}".format(table='final.crime_logs'))
