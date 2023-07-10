@@ -1,7 +1,5 @@
 import pandas as pd
-import os
 import boto3
-import sys
 import psycopg2
 from config.config import Config as cfg
 
