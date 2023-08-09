@@ -62,9 +62,9 @@ def open_data_staging_fl():
 
 def open_data_staging_batch():
     ''' 
-    Returns Los Angeles Crime Data (Open Data) - most recent date. There's a 3 day lag between current date and most recent record.
+    Returns Los Angeles Crime Data (Open Data) - most recent date. Updates to source data is inconsistent so we will process data 10 days prior.
     '''
-    processed_date = str(date.today() - timedelta(days=3))
+    processed_date = str(date.today() - timedelta(days=10))
     api_url = 'https://data.lacity.org/resource/2nrs-mtv8.json?date_rptd=' + processed_date
     data = requests.get(api_url).json()
 
@@ -80,7 +80,7 @@ def open_data_staging_batch():
     #Remove additional spaces between words in address field.
     data_df['location'] = data_df['location'].str.replace('\s+',' ',regex=True)
 
-        # Create a list of tuples from the dataframe values
+    # Create a list of tuples from the dataframe values
     tuples = [tuple(x) for x in data_df.to_numpy()]
 
     query = ("INSERT INTO {table}({columns}) VALUES %s".format(table='public.crime_logs',columns=','.join(data_df.columns)))

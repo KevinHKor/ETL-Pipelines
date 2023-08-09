@@ -22,7 +22,8 @@ def transform_task():
 
 @task
 def load_task():
-    load()
+    load.load_final()
+    load.load_to_dw()
 
 # Default arguments for DAGs
 default_args = {
@@ -48,8 +49,8 @@ with DAG(
     extract_openData = extract_openData_task()
     extract_s3 = extract_s3_task()
     transform = transform_task()
-    #load = load_task(transform)
+    #load = load_task()
 
     extract_openData >> transform
     extract_s3 >> transform
-    #transform >> load
+    # transform >> load
