@@ -2,4 +2,5 @@
 docker-compose.yml
 config/
 dags/__pycache__
+et/__pycache__
 logs/
